@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSearchParams } from 'next/navigation';
 import ProductCard from '@/components/ProductCard';
 import { Product, getProducts } from '@/lib/products';
 import { Category, categoryNames, categories } from '@/lib/types';
-import { Filter, X, ChevronDown, Grid3X3, LayoutGrid } from 'lucide-react';
+import { Filter, X, ChevronDown, Grid3X3, LayoutGrid, Loader2 } from 'lucide-react';
 
 const sortOptions = [
   { value: 'newest', label: 'En Yeniler' },
@@ -15,7 +15,7 @@ const sortOptions = [
   { value: 'name', label: 'İsim: A-Z' },
 ];
 
-export default function ProductsPage() {
+function ProductsContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get('category') as Category | null;
   const isNewParam = searchParams.get('new') === 'true';
@@ -308,3 +308,21 @@ export default function ProductsPage() {
   );
 }
 
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-rose-50/50 to-white pt-28 pb-20 flex items-center justify-center">
+      <div className="text-center">
+        <Loader2 className="w-12 h-12 text-rose-500 animate-spin mx-auto mb-4" />
+        <p className="text-gray-500">Yükleniyor...</p>
+      </div>
+    </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <ProductsContent />
+    </Suspense>
+  );
+}

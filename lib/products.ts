@@ -1,5 +1,8 @@
 import { Product } from './types';
 
+// Re-export Product type
+export type { Product };
+
 // Mock products data - Bu veriler daha sonra gerçek veritabanı ile değiştirilecek
 export const mockProducts: Product[] = [
   {
