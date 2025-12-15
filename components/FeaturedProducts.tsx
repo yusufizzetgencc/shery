@@ -17,38 +17,38 @@ export default function FeaturedProducts() {
   }, []);
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-20 sm:py-24 bg-white">
       <div className="container-custom">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
           <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-rose-500 text-sm font-medium tracking-widest uppercase mb-4 block"
+            className="inline-block text-rose-500 text-sm font-semibold tracking-widest uppercase mb-4"
           >
             Öne Çıkanlar
           </motion.span>
           <h2 
-            className="text-4xl md:text-5xl mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl mb-4 sm:mb-6"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             En Çok <span className="gradient-text">Sevilenler</span>
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-600 max-w-xl mx-auto text-sm sm:text-base px-4">
             Müşterilerimizin en çok tercih ettiği, kalite ve şıklığı bir arada sunan özel parçalar.
           </p>
         </motion.div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {products.map((product, index) => (
             <ProductCard key={product.id} product={product} index={index} />
           ))}
@@ -60,7 +60,7 @@ export default function FeaturedProducts() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mt-14"
+          className="text-center mt-12 sm:mt-14"
         >
           <Link href="/products">
             <motion.button
@@ -77,4 +77,3 @@ export default function FeaturedProducts() {
     </section>
   );
 }
-

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Heart, Eye } from 'lucide-react';
+import { Heart, Eye, ShoppingBag } from 'lucide-react';
 import { Product, formatPrice } from '@/lib/products';
 
 interface ProductCardProps {
@@ -12,54 +12,44 @@ interface ProductCardProps {
 export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
       viewport={{ once: true }}
       className="group"
     >
-      <div className="relative overflow-hidden rounded-2xl bg-beige-50 aspect-[3/4] mb-4">
-        {/* Product Image Placeholder */}
-        <div className="absolute inset-0 bg-gradient-to-br from-rose-100 via-beige-100 to-rose-50">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center p-6">
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-white/60 flex items-center justify-center">
-                <svg 
-                  className="w-10 h-10 text-rose-300" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={1.5} 
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" 
-                  />
-                </svg>
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-rose-50 to-beige-50 aspect-[3/4] mb-4 shadow-sm hover:shadow-xl transition-shadow duration-500">
+        {/* Product Image Placeholder - Premium Look */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-rose-100/80 via-white/50 to-beige-100/80" />
+          <div className="absolute inset-0 flex items-center justify-center p-6">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center shadow-inner">
+                <ShoppingBag className="w-7 h-7 text-rose-400" />
               </div>
-              <p className="text-sm text-rose-400 font-medium">{product.name}</p>
+              <p className="text-sm font-medium text-rose-500/80 line-clamp-2">{product.name}</p>
             </div>
           </div>
         </div>
 
         {/* Badges */}
-        <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
+        <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
           {product.isNew && (
             <motion.span
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className="px-3 py-1 bg-rose-500 text-white text-xs font-medium rounded-full"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="px-3 py-1.5 bg-rose-500 text-white text-xs font-semibold rounded-full shadow-lg shadow-rose-200"
             >
               Yeni
             </motion.span>
           )}
           {product.isFeatured && (
             <motion.span
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.1 }}
-              className="px-3 py-1 bg-beige-400 text-white text-xs font-medium rounded-full"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="px-3 py-1.5 bg-gradient-to-r from-amber-400 to-orange-400 text-white text-xs font-semibold rounded-full shadow-lg"
             >
               Öne Çıkan
             </motion.span>
@@ -67,11 +57,11 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         </div>
 
         {/* Hover Actions */}
-        <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+        <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0 z-10">
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-rose-500 transition-colors"
+            className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-rose-500 hover:bg-white transition-all"
             aria-label="Favorilere ekle"
           >
             <Heart size={18} />
@@ -79,7 +69,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-rose-500 transition-colors"
+            className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-rose-500 hover:bg-white transition-all"
             aria-label="Hızlı bakış"
           >
             <Eye size={18} />
@@ -87,14 +77,14 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         </div>
 
         {/* Hover Overlay */}
-        <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
         {/* Quick View Button */}
         <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 z-10">
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full py-3 bg-white/95 backdrop-blur-sm text-gray-900 text-sm font-medium rounded-full hover:bg-white transition-colors shadow-lg"
+            className="w-full py-3 bg-white/95 backdrop-blur-sm text-gray-900 text-sm font-semibold rounded-xl hover:bg-white transition-colors shadow-xl"
           >
             Ürünü İncele
           </motion.button>
@@ -102,31 +92,33 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
       </div>
 
       {/* Product Info */}
-      <div className="space-y-2">
-        <h3 className="font-medium text-gray-900 group-hover:text-rose-600 transition-colors line-clamp-1">
+      <div className="space-y-2 px-1">
+        <h3 className="font-medium text-gray-900 group-hover:text-rose-600 transition-colors line-clamp-1 text-sm sm:text-base">
           {product.name}
         </h3>
         
         {/* Colors */}
         {product.colors.length > 0 && (
           <div className="flex items-center gap-1.5">
-            {product.colors.map((color) => (
+            {product.colors.slice(0, 4).map((color) => (
               <div
                 key={color.name}
-                className="w-4 h-4 rounded-full border border-gray-200 shadow-sm"
+                className="w-4 h-4 rounded-full border-2 border-white shadow-sm ring-1 ring-gray-100"
                 style={{ backgroundColor: color.hex }}
                 title={color.name}
               />
             ))}
+            {product.colors.length > 4 && (
+              <span className="text-xs text-gray-400">+{product.colors.length - 4}</span>
+            )}
           </div>
         )}
 
         {/* Price */}
-        <p className="text-lg font-semibold text-gray-900">
+        <p className="text-lg font-bold text-gray-900">
           {formatPrice(product.price)}
         </p>
       </div>
     </motion.div>
   );
 }
-
