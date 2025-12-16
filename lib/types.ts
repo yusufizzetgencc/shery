@@ -90,3 +90,4 @@ export const categoryNames: Record<Category, string> = {
   ayakkabi: 'Ayakkabılar'
 };
 
+
