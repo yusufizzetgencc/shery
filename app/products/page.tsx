@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import ProductCard from '@/components/ProductCard';
 import { Product, getProducts } from '@/lib/products';
 import { Category, categoryNames, categories } from '@/lib/types';
-import { Filter, X, ChevronDown, Grid3X3, LayoutGrid, Loader2 } from 'lucide-react';
+import { Filter, X, ChevronDown, Grid3X3, LayoutGrid, Loader2, SlidersHorizontal } from 'lucide-react';
 
 const sortOptions = [
   { value: 'newest', label: 'En Yeniler' },
@@ -60,7 +60,11 @@ function ProductsContent() {
     // Sort
     switch (sortBy) {
       case 'newest':
-        filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        filtered.sort((a, b) => {
+          const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+          const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+          return dateB - dateA;
+        });
         break;
       case 'price-asc':
         filtered.sort((a, b) => a.price - b.price);
@@ -106,17 +110,17 @@ function ProductsContent() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex flex-wrap items-center justify-between gap-4 mb-10 p-4 bg-white rounded-2xl shadow-sm"
+          className="flex flex-wrap items-center justify-between gap-4 mb-10 p-4 bg-white rounded-2xl shadow-sm border border-rose-50"
         >
           {/* Left Side - Filter Toggle & Categories */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 px-4 py-2 bg-beige-100 hover:bg-beige-200 rounded-full text-sm font-medium transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-rose-50 to-beige-50 hover:from-rose-100 hover:to-beige-100 rounded-full text-sm font-medium transition-colors border border-rose-100"
             >
-              <Filter size={16} />
+              <SlidersHorizontal size={16} />
               Filtreler
               {(selectedCategory !== 'all' || showOnlyNew) && (
                 <span className="w-5 h-5 bg-rose-500 text-white text-xs rounded-full flex items-center justify-center">
@@ -161,7 +165,7 @@ function ProductsContent() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="appearance-none pl-4 pr-10 py-2 bg-beige-50 border border-beige-200 rounded-full text-sm focus:outline-none focus:border-rose-300 cursor-pointer"
+                className="appearance-none pl-4 pr-10 py-2.5 bg-beige-50 border border-beige-200 rounded-full text-sm focus:outline-none focus:border-rose-300 focus:ring-2 focus:ring-rose-100 cursor-pointer"
               >
                 {sortOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -173,16 +177,16 @@ function ProductsContent() {
             </div>
 
             {/* Grid Toggle */}
-            <div className="hidden md:flex items-center gap-1 p-1 bg-beige-50 rounded-full">
+            <div className="hidden md:flex items-center gap-1 p-1 bg-beige-50 rounded-full border border-beige-100">
               <button
                 onClick={() => setGridCols(3)}
-                className={`p-2 rounded-full transition-colors ${gridCols === 3 ? 'bg-white shadow-sm text-rose-500' : 'text-gray-400 hover:text-gray-600'}`}
+                className={`p-2 rounded-full transition-all ${gridCols === 3 ? 'bg-white shadow-sm text-rose-500' : 'text-gray-400 hover:text-gray-600'}`}
               >
                 <LayoutGrid size={18} />
               </button>
               <button
                 onClick={() => setGridCols(4)}
-                className={`p-2 rounded-full transition-colors ${gridCols === 4 ? 'bg-white shadow-sm text-rose-500' : 'text-gray-400 hover:text-gray-600'}`}
+                className={`p-2 rounded-full transition-all ${gridCols === 4 ? 'bg-white shadow-sm text-rose-500' : 'text-gray-400 hover:text-gray-600'}`}
               >
                 <Grid3X3 size={18} />
               </button>
@@ -200,13 +204,14 @@ function ProductsContent() {
               transition={{ duration: 0.3 }}
               className="overflow-hidden mb-8"
             >
-              <div className="p-6 bg-white rounded-2xl shadow-sm">
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+              <div className="p-6 bg-white rounded-2xl shadow-sm border border-rose-50">
+                <h3 className="text-sm font-semibold text-gray-900 mb-4">Kategoriler</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
                   <button
                     onClick={() => setSelectedCategory('all')}
                     className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                       selectedCategory === 'all'
-                        ? 'bg-rose-500 text-white shadow-md'
+                        ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-md shadow-rose-200'
                         : 'bg-beige-50 text-gray-600 hover:bg-beige-100'
                     }`}
                   >
@@ -216,18 +221,19 @@ function ProductsContent() {
                     <button
                       key={category.id}
                       onClick={() => setSelectedCategory(category.id)}
-                      className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                      className={`px-4 py-3 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2 ${
                         selectedCategory === category.id
-                          ? 'bg-rose-500 text-white shadow-md'
+                          ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-md shadow-rose-200'
                           : 'bg-beige-50 text-gray-600 hover:bg-beige-100'
                       }`}
                     >
+                      <span>{category.icon}</span>
                       {category.name}
                     </button>
                   ))}
                 </div>
 
-                <div className="mt-4 pt-4 border-t border-beige-100">
+                <div className="mt-6 pt-4 border-t border-beige-100">
                   <label className="flex items-center gap-3 cursor-pointer">
                     <input
                       type="checkbox"
@@ -275,9 +281,9 @@ function ProductsContent() {
             animate={{ opacity: 1 }}
             className="text-center py-20"
           >
-            <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-beige-100 flex items-center justify-center">
+            <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-rose-100 to-beige-100 flex items-center justify-center">
               <svg 
-                className="w-12 h-12 text-beige-400" 
+                className="w-12 h-12 text-rose-300" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"

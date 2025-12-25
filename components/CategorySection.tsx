@@ -10,17 +10,24 @@ const categoryImages: Record<string, string> = {
   elbise: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600&auto=format&fit=crop',
   bluz: 'https://images.unsplash.com/photo-1564257631407-4deb1f99d992?q=80&w=600&auto=format&fit=crop',
   pantolon: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?q=80&w=600&auto=format&fit=crop',
-  etek: 'https://images.unsplash.com/photo-1583496661160-fb5886a0uj?q=80&w=600&auto=format&fit=crop',
+  etek: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aat9?q=80&w=600&auto=format&fit=crop',
   ceket: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600&auto=format&fit=crop',
   aksesuar: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=600&auto=format&fit=crop',
+  ayakkabi: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=600&auto=format&fit=crop',
 };
 
 export default function CategorySection() {
   const displayCategories = categories.slice(0, 6);
 
   return (
-    <section className="py-20 sm:py-24 bg-gradient-to-b from-beige-50/50 to-white">
-      <div className="container-custom">
+    <section className="py-20 sm:py-24 bg-gradient-to-b from-beige-50/50 to-white relative overflow-hidden">
+      {/* Background Decorations */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-0 w-[300px] h-[300px] bg-rose-100/20 rounded-full blur-3xl -translate-x-1/2" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-beige-100/30 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+      </div>
+
+      <div className="container-custom relative">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -85,13 +92,7 @@ export default function CategorySection() {
                           index === 0 ? 'w-16 h-16 sm:w-20 sm:h-20' : 'w-12 h-12 sm:w-14 sm:h-14'
                         }`}>
                           <span className={`${index === 0 ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'}`}>
-                            {category.id === 'elbise' && '👗'}
-                            {category.id === 'bluz' && '👚'}
-                            {category.id === 'pantolon' && '👖'}
-                            {category.id === 'etek' && '🩱'}
-                            {category.id === 'ceket' && '🧥'}
-                            {category.id === 'aksesuar' && '👜'}
-                            {category.id === 'ayakkabi' && '👠'}
+                            {category.icon}
                           </span>
                         </div>
                       </div>

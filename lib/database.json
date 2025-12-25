@@ -1,0 +1,63 @@
+{
+  "categories": [
+    {
+      "id": "elbise",
+      "name": "Elbiseler",
+      "description": "Zarif ve şık elbise koleksiyonu",
+      "icon": "👗"
+    },
+    {
+      "id": "bluz",
+      "name": "Bluzlar",
+      "description": "Her tarza uygun bluz seçenekleri",
+      "icon": "👚"
+    },
+    {
+      "id": "pantolon",
+      "name": "Pantolonlar",
+      "description": "Rahat ve şık pantolon modelleri",
+      "icon": "👖"
+    },
+    {
+      "id": "etek",
+      "name": "Etekler",
+      "description": "Feminen ve modern etek tasarımları",
+      "icon": "🩱"
+    },
+    {
+      "id": "ceket",
+      "name": "Ceketler",
+      "description": "Sezonun en trend ceketleri",
+      "icon": "🧥"
+    },
+    {
+      "id": "aksesuar",
+      "name": "Aksesuarlar",
+      "description": "Stilinizi tamamlayacak aksesuarlar",
+      "icon": "👜"
+    },
+    {
+      "id": "ayakkabi",
+      "name": "Ayakkabılar",
+      "description": "Şık ve rahat ayakkabı modelleri",
+      "icon": "👠"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "Elegant Saten Elbise",
+      "description": "Zarif saten kumaştan üretilmiş, özel günler için mükemmel bir seçim. Dökümlü tasarımı ile şık ve rahat bir görünüm sunar.",
+      "price": 2450,
+      "category": "elbise",
+      "image": "https://res.cloudinary.com/doiaxvaa4/image/upload/v1766650811/Gemini_Generated_Image_jw8o6ujw8o6ujw8o_fhf0l7.png",
+      "sizes": ["XS", "S", "M", "L","XL"],
+      "colors": [
+        { "name": "Pembe", "hex": "#FFB3C6" },
+        { "name": "Bej", "hex": "#E8DCC4" }
+      ],
+      "isNew": true,
+      "isFeatured": true
+    }
+  ]
+}

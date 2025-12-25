@@ -1,17 +1,22 @@
+// Ürün tipi tanımı
 export interface Product {
   id: string;
   name: string;
   description: string;
   price: number;
+  originalPrice?: number; // İndirimli ürünler için orijinal fiyat
   category: Category;
-  images: string[];
+  image: string; // Ana ürün görseli (Cloudinary URL)
+  images?: string[]; // Ek görseller
   sizes: Size[];
   colors: ProductColor[];
   isNew?: boolean;
   isFeatured?: boolean;
-  createdAt: Date;
+  inStock?: boolean;
+  createdAt?: string;
 }
 
+// Kategori tipi
 export type Category = 
   | 'elbise'
   | 'bluz'
@@ -21,64 +26,33 @@ export type Category =
   | 'aksesuar'
   | 'ayakkabi';
 
-export type Size = 'XS' | 'S' | 'M' | 'L' | 'XL';
+// Beden tipi
+export type Size = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL';
 
+// Renk tipi
 export interface ProductColor {
   name: string;
   hex: string;
 }
 
+// Kategori bilgisi
 export interface CategoryInfo {
   id: Category;
   name: string;
   description: string;
-  image: string;
+  icon: string;
 }
 
-export const categories: CategoryInfo[] = [
-  {
-    id: 'elbise',
-    name: 'Elbiseler',
-    description: 'Zarif ve şık elbise koleksiyonu',
-    image: '/images/categories/elbise.jpg'
-  },
-  {
-    id: 'bluz',
-    name: 'Bluzlar',
-    description: 'Her tarza uygun bluz seçenekleri',
-    image: '/images/categories/bluz.jpg'
-  },
-  {
-    id: 'pantolon',
-    name: 'Pantolonlar',
-    description: 'Rahat ve şık pantolon modelleri',
-    image: '/images/categories/pantolon.jpg'
-  },
-  {
-    id: 'etek',
-    name: 'Etekler',
-    description: 'Feminen ve modern etek tasarımları',
-    image: '/images/categories/etek.jpg'
-  },
-  {
-    id: 'ceket',
-    name: 'Ceketler',
-    description: 'Sezonun en trend ceketleri',
-    image: '/images/categories/ceket.jpg'
-  },
-  {
-    id: 'aksesuar',
-    name: 'Aksesuarlar',
-    description: 'Stilinizi tamamlayacak aksesuarlar',
-    image: '/images/categories/aksesuar.jpg'
-  },
-  {
-    id: 'ayakkabi',
-    name: 'Ayakkabılar',
-    description: 'Şık ve rahat ayakkabı modelleri',
-    image: '/images/categories/ayakkabi.jpg'
-  }
-];
+// JSON veritabanı tipi
+export interface Database {
+  categories: CategoryInfo[];
+  products: Product[];
+}
+
+// Kategorileri getir
+import database from './database.json';
+
+export const categories: CategoryInfo[] = database.categories as CategoryInfo[];
 
 export const categoryNames: Record<Category, string> = {
   elbise: 'Elbiseler',
@@ -89,6 +63,3 @@ export const categoryNames: Record<Category, string> = {
   aksesuar: 'Aksesuarlar',
   ayakkabi: 'Ayakkabılar'
 };
-
-
-

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import ProductCard from './ProductCard';
 import { Product, getProducts } from '@/lib/products';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 
 export default function FeaturedProducts() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -16,9 +16,19 @@ export default function FeaturedProducts() {
     setProducts(featured);
   }, []);
 
+  if (products.length === 0) {
+    return null;
+  }
+
   return (
-    <section className="py-20 sm:py-24 bg-white">
-      <div className="container-custom">
+    <section className="py-20 sm:py-24 bg-white relative overflow-hidden">
+      {/* Background Decorations */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-rose-50/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-beige-100/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+      </div>
+
+      <div className="container-custom relative">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -27,15 +37,16 @@ export default function FeaturedProducts() {
           viewport={{ once: true }}
           className="text-center mb-12 sm:mb-16"
         >
-          <motion.span
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1 }}
             viewport={{ once: true }}
-            className="inline-block text-rose-500 text-sm font-semibold tracking-widest uppercase mb-4"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-50 to-orange-50 rounded-full border border-amber-200/50 mb-4"
           >
-            Öne Çıkanlar
-          </motion.span>
+            <Sparkles size={16} className="text-amber-500" />
+            <span className="text-amber-600 text-sm font-semibold">Öne Çıkanlar</span>
+          </motion.div>
           <h2 
             className="text-3xl sm:text-4xl md:text-5xl mb-4 sm:mb-6"
             style={{ fontFamily: 'var(--font-display)' }}
