@@ -10,7 +10,7 @@ const categoryImages: Record<string, string> = {
   elbise: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600&auto=format&fit=crop',
   bluz: 'https://images.unsplash.com/photo-1564257631407-4deb1f99d992?q=80&w=600&auto=format&fit=crop',
   pantolon: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?q=80&w=600&auto=format&fit=crop',
-  etek: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aat9?q=80&w=600&auto=format&fit=crop',
+  etek: 'https://images.unsplash.com/photo-1577900232427-18c9f3f59ff9?q=80&w=600&auto=format&fit=crop',
   ceket: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600&auto=format&fit=crop',
   aksesuar: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=600&auto=format&fit=crop',
   ayakkabi: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=600&auto=format&fit=crop',
